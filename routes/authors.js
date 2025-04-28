@@ -7,10 +7,10 @@ const {
   updateAuthor,
   deleteAuthor,
 } = require("../controllers/authorController");
-const { verifyTokenAndAdmin } = require("../middlewares/verifyToken");
+const { verifyTokenAndAdmin ,verifyToken} = require("../middlewares/verifyToken");
 
 // /api/authors
-router.route("/").get(getAllAuthors).post(verifyTokenAndAdmin, createAuthor);
+router.route("/").get(getAllAuthors).post(verifyToken, createAuthor);
 
 // /api/authors/:id
 router

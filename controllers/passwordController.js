@@ -22,6 +22,7 @@ module.exports.getForgotPasswordView = asyncHandler((req, res) => {
  */
 module.exports.sendForgotPasswordLink = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
+  console.log(user);
   if (!user) {
     return res.status(404).json({ message: "user not found" });
   }
@@ -56,7 +57,6 @@ module.exports.sendForgotPasswordLink = asyncHandler(async (req, res) => {
       console.log(error);
       res.status(500).json({message: "something went wrong"});
     } else {
-      console.log("Email sent: " + success.response);
       res.render("link-send");
     }
   });

@@ -12,8 +12,8 @@ const {
  *  @access  public
  */
 module.exports.getAllAuthors = asyncHandler(async (req, res) => {
-  const { pageNumber } = req.query;
-  const authorsPerPage = 2;
+  const { pageNumber } = req.query.pageNumber;
+  const authorsPerPage = req.query.authorsPerPage;
 
   const authorList = await Author.find()
     .skip((pageNumber - 1) * authorsPerPage)
@@ -44,11 +44,13 @@ module.exports.getAuthorById = asyncHandler(async (req, res) => {
  *  @access  private (only admin)
  */
 module.exports.createAuthor = asyncHandler(async (req, res) => {
-  const { error } = validateCreateAuthor(req.body);
+  console.log(req.body);
 
+  const { error } = validateCreateAuthor(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
+
 
   const author = new Author({
     firstName: req.body.firstName,
